@@ -14,7 +14,7 @@ import { Label } from "./ui/label";
 import { useState } from "react";
 import { searchCard } from "@/lib/searchCard";
 import { CardModel } from "@/models/card";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import ShowCards from "./ShowCards";
 
 let updateTimeout: NodeJS.Timeout;
 
@@ -46,7 +46,7 @@ export default function AddCard() {
         <DialogTrigger asChild>
           <Button>Add Card</Button>
         </DialogTrigger>
-        <DialogContent>
+        <DialogContent className="max-w-[90vw] min-w-[70vw] p-8 rounded-xl">
           <DialogHeader>
             <DialogTitle className="text-center">Search Card</DialogTitle>
             <DialogDescription className="text-center">
@@ -86,28 +86,7 @@ export default function AddCard() {
                   />
                 </div>
               </div>
-              <div className="mt-8">
-                <h3 className="text-2xl font-medium mb-4">
-                  Scrollable Card Grid
-                </h3>
-                <div className="border rounded-lg h-[500px] overflow-y-auto p-6 bg-gray-50">
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-                    {cards.map((card) => (
-                      <Card
-                        key={card.id}
-                        className="bg-white h-[200px] flex flex-col"
-                      >
-                        <CardHeader className="p-4">
-                          <CardTitle className="text-xl">{card.name}</CardTitle>
-                        </CardHeader>
-                        <CardContent className="p-4 pt-0 flex-grow">
-                          <p className="text-lg">{card.setName}</p>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                </div>
-              </div>
+              <ShowCards cards={cards} />
             </div>
           </DialogHeader>
         </DialogContent>

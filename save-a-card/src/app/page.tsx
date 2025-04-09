@@ -1,5 +1,5 @@
+import AddCard from "../components/AddCard";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import AddCard from "@/components/addCard";
 
 export default function Home() {
   const items = [

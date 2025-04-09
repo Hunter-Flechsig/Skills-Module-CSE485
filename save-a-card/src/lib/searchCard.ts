@@ -2,7 +2,7 @@ import { CardModel } from "@/models/card";
 
 export async function searchCard(name: string, set: string) {
 
-    const url = `https://api.pokemontcg.io/v2/cards?q=set.name:${set}* name:${name}*&select=name,set,images`
+    const url = `https://api.pokemontcg.io/v2/cards?q=set.name:${set}* name:${name}*&select=name,set,images,id`
 
     try {
         const response = await fetch(url, {
@@ -23,7 +23,7 @@ export async function searchCard(name: string, set: string) {
 
 
         return data.map((card): CardModel => ({
-            id: card.id,
+            id: card.id || 'Unknown ID',
             name: card.name || 'Unknown Name',
             image: card.images?.small || null,
             setName: card.set?.name || 'Unknown Set',
