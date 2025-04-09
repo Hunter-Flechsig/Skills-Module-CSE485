@@ -15,6 +15,8 @@ import { useState } from "react";
 import { searchCard } from "@/lib/searchCard";
 import { CardModel } from "@/models/card";
 import ShowCards from "./ShowCards";
+import { useAtom } from "jotai";
+import { myAtom } from "@/app/atoms"; // Import the atom from atoms.ts
 
 let updateTimeout: NodeJS.Timeout;
 
@@ -22,6 +24,7 @@ export default function AddCard() {
   const [name, setName] = useState("");
   const [set, setSet] = useState("");
   const [cards, setCards] = useState<CardModel[]>([]);
+  const [myCards, setMyCards] = useAtom(myAtom); // Use the atom to manage state
 
   const handleChange = () => {
     console.log("in use effect");
@@ -38,6 +41,17 @@ export default function AddCard() {
         console.log("Cards found:", cards);
       }, 500); // Adjust the debounce time as needed
     }
+  };
+
+  const handleAddCard = (card: CardModel) => {
+    console.log("Card clicked:", card);
+    setMyCards((prevCards) => {
+      if (!prevCards.some((c) => c.id === card.id)) {
+        return [...prevCards, card]; // Update the atom state if no duplicate
+      }
+      return prevCards; // Return the same state if duplicate exists
+    });
+    // Add your logic to add the card here
   };
 
   return (
@@ -86,7 +100,7 @@ export default function AddCard() {
                   />
                 </div>
               </div>
-              <ShowCards cards={cards} />
+              <ShowCards cards={cards} handleCardClick={handleAddCard} />
             </div>
           </DialogHeader>
         </DialogContent>

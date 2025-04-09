@@ -1,3 +1,5 @@
+"use server"
+
 import { client } from "@/app/db/redis";
 import { CardModel } from "../models/CardModel";
 
