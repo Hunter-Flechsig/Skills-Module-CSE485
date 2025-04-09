@@ -17,6 +17,7 @@ import { CardModel } from "@/models/card";
 import ShowCards from "./ShowCards";
 import { useAtom } from "jotai";
 import { myAtom } from "@/app/atoms"; // Import the atom from atoms.ts
+import { addPokemonAction } from "@/app/actions/pokemon"; // Import the action to add cards
 
 let updateTimeout: NodeJS.Timeout;
 
@@ -48,9 +49,11 @@ export default function AddCard() {
     setMyCards((prevCards) => {
       if (!prevCards.some((c) => c.id === card.id)) {
         return [...prevCards, card]; // Update the atom state if no duplicate
+        // Call the action to add the card
       }
       return prevCards; // Return the same state if duplicate exists
     });
+    addPokemonAction(myCards);
     // Add your logic to add the card here
   };
 
